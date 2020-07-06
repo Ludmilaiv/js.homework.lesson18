@@ -63,7 +63,7 @@ window.addEventListener("DOMContentLoaded", function() {
       if (target.tagName === "A") {
         handlerMenu();
       }
-    })
+    });
 
     btnMenu.addEventListener("click", handlerMenu);
   };

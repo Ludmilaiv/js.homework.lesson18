@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", function() {
   "use strict";
 
   // Timer
-  function countTimer(deadline) {
+  const countTimer = (deadline) => {
     let timerHours = document.querySelector("#timer-hours");
     let timerMinutes = document.querySelector("#timer-minutes");
     let timerSeconds = document.querySelector("#timer-seconds");
@@ -43,8 +43,92 @@ window.addEventListener("DOMContentLoaded", function() {
     updateClock();
     setInterval(updateClock, 1000);
     
+  };
+
+  countTimer("20 july 2020");
+
+  //меню
+  const toggleMenu = () => {
+    const btnMenu = document.querySelector(".menu");
+    const menu = document.querySelector("menu");
+    const btnClose = document.querySelector(".close-btn");
+    const menuItems = menu.querySelectorAll("ul>li");
+
+    const handlerMenu = () => {
+      menu.classList.toggle("active-menu");
+    }
+
+    btnMenu.addEventListener("click", handlerMenu);
+    btnClose.addEventListener("click", handlerMenu);
+    menuItems.forEach((elem) => elem.addEventListener("click", handlerMenu));
+
+  };
+
+  toggleMenu();
+
+  //popup
+
+  const togglePopUp = () => {
+    const popup = document.querySelector(".popup");
+    const popupContent = popup.querySelector(".popup-content");
+    const popupBtn = document.querySelectorAll(".popup-btn");
+    const popupClose = document.querySelector(".popup-close");
+
+    const animateShow = () => {
+      if (screen.width >= 768) {
+        let top = parseFloat(popupContent.style.top);
+        top += 20;
+        if (top < popup.offsetHeight / 10) {
+          popupContent.style.top = top + "px";
+          if (+popup.style.opacity < 1) {
+            popup.style.opacity = +popup.style.opacity + 0.04;
+          }
+          requestAnimationFrame(animateShow);
+        } else {
+          popup.style.opacity = 1;
+        }
+      } else {
+        popupContent.style.top = popup.offsetHeight / 10 + "px"
+        popup.style.opacity = 1;
+      }
+      
+    }
+
+    const animateHide = () => {
+      if (screen.width >= 768) {
+        let top = parseFloat(popupContent.style.top);
+        top -= 20;
+        if (top > -popupContent.offsetHeight) {
+          popupContent.style.top = top + "px";
+          if (+popup.style.opacity > 0) {
+            popup.style.opacity = +popup.style.opacity - 0.04;
+          }
+          requestAnimationFrame(animateHide);
+        } else {
+          popup.style.display = "none";
+        }
+      } else {
+        popup.style.display = "none";
+      }
+      
+    }
+
+    popupBtn.forEach((elem) => {
+      elem.addEventListener("click", () => {
+        popup.style.opacity = "0";
+        popup.style.display = "block";
+        popupContent.style.top = `-${popupContent.offsetHeight}px`;
+        animateShow();
+      });
+    });
+
+    popupClose.addEventListener("click", () => {
+      animateHide();
+    });
+
   }
 
-  countTimer("6 july 2020")
+  togglePopUp();
+
 
 });

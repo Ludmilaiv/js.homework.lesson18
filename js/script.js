@@ -49,23 +49,36 @@ window.addEventListener("DOMContentLoaded", function() {
 
   //меню
   const toggleMenu = () => {
-    const btnMenu = document.querySelector(".menu");
     const menu = document.querySelector("menu");
-    const btnClose = document.querySelector(".close-btn");
     const menuItems = menu.querySelectorAll("ul>li");
 
     const handlerMenu = () => {
       menu.classList.toggle("active-menu");
     }
 
-    menu.addEventListener("click", (event) => {
+    document.addEventListener("click", (event) => {
       let target = event.target;
-      if (target.tagName === "A") {
+      console.log(target);
+      menuItems.forEach(elem => {
+        if (target.parentElement == elem || target.classList.contains("close-btn")) {
+          handlerMenu();
+          return;
+        }
+      });
+      target = target.closest(".menu");
+      if (target) {
         handlerMenu();
+      } else if (menu.classList.contains("active-menu")){
+        target = event.target;
+        target = target.closest("menu");
+        if (!target) {
+          handlerMenu();
+        }
       }
+      
     });
 
-    btnMenu.addEventListener("click", handlerMenu);
+   // btnMenu.addEventListener("click", handlerMenu);
   };
 
   toggleMenu();

@@ -58,7 +58,6 @@ window.addEventListener("DOMContentLoaded", function() {
 
     document.addEventListener("click", (event) => {
       let target = event.target;
-      console.log(target);
       menuItems.forEach(elem => {
         if (target.parentElement == elem || target.classList.contains("close-btn")) {
           handlerMenu();
@@ -329,5 +328,41 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   slider();
+
+  //наша команда
+
+  const ourCommand = () => {
+    const command = document.getElementById("command");
+  
+    command.addEventListener("mouseover", (event) => {
+      const target = event.target;
+      const oldImage = target.getAttribute("src");
+      if(target.classList.contains("command__photo")) {
+        target.setAttribute("src", target.dataset.img);
+        target.addEventListener("mouseout", function  func() {
+          target.setAttribute("src", oldImage);
+          target.removeEventListener("mouseout", func);
+        });
+      }
+    });
+  }
+  ourCommand();
+
+  //калькулятор
+  
+  const calculatVerification = () => {
+    const calc = document.getElementById("calc");
+    
+    calc.addEventListener("input", (event) => {
+      const target = event.target;
+      if (target.classList.contains("calc-item")) {
+        const value = target.value
+        target.value = value.replace(/\D/,"");
+ 
+      }
+    })
+
+  }
+  calculatVerification();
 
 });

@@ -372,6 +372,25 @@ window.addEventListener("DOMContentLoaded", function() {
     const calcCount = document.querySelector(".calc-count");
     const totalValue = document.getElementById("total");
 
+    const animTotal = (val) => {
+      let showTotal = +totalValue.textContent;
+      if (showTotal == 0) {
+        totalValue.textContent = val;
+      } else if (showTotal < val) {
+        setTimeout(() => {
+          showTotal++;
+          totalValue.textContent = showTotal;
+          animTotal(val);
+        }, 1); 
+      } else if (showTotal > val) {
+        setTimeout(() => {
+          showTotal--;
+          totalValue.textContent = showTotal;
+          animTotal(val);
+        }, 1); 
+      } 
+    }
+
     const countSum = () => {
       let total = 0;
       let countValue = 1;
@@ -392,8 +411,8 @@ window.addEventListener("DOMContentLoaded", function() {
       if (typeValue && sqareValue) {
          total = price * typeValue * sqareValue * countValue * dayValue;
        } 
-
-      totalValue.textContent = total;
+       animTotal(total);
+      //totalValue.textContent = total;
     };
 
     calcBlock.addEventListener("change",(event) => {

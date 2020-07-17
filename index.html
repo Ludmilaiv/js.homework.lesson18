@@ -420,4 +420,27 @@
 </div>
 <script src="js/script.js"></script>
 </body>
+
+<script src="plugins/validator/validator.js"></script>
+
+<script>
+	const valid = new Validator ({
+		selector: "#form1",
+		pattern: {
+		},
+		method: {
+			"form1-phone": [
+				["noEmpty"],
+				["pattern", "phone"]
+			],
+			"form1-email": [
+				["noEmpty"],
+				["pattern", "email"]
+			]
+		}
+	});
+
+	valid.init();
+</script>
+
 </html>

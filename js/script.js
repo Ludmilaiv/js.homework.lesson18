@@ -431,7 +431,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
   const sendForm = () => {
     const errorMesage = "Что-то пошло не так...";
-    const loadMessage = "Загрузка...";
+    const loadImage = "images/loading.gif";
     const successMessage = "Спасибо! Мы скоро с вами свяжемся";
 
     const forms = document.querySelectorAll("form");
@@ -444,7 +444,7 @@ window.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         if (validators[form.id].isValidation()) {
           form.appendChild(statusMessage);
-          statusMessage.textContent = loadMessage;
+          statusMessage.innerHTML = `<img src=${loadImage} width=50 alt="Загрузка">`;
           const formData = new FormData(form);
           let body = {};
           formData.forEach((val, key) => {
@@ -454,7 +454,7 @@ window.addEventListener("DOMContentLoaded", function() {
             statusMessage.textContent = successMessage;
             form.reset();
           }, (error) => {
-            statusMessage.textContent = errorMesage;
+            statusMessage.style.background = errorMesage;
             console.log(error);
           });
         }

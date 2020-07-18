@@ -67,7 +67,7 @@
 			<span id="timer-seconds">12</span>
 		</div>
 	</div>
-	<form id="form1" name="user_form" class="main-form">
+	<form id="form1" name="user_form" class="main-form" method="POST">
 		<div class="main-form-input container">
 			<div class="row">
 				<div class="col-12 col-lg-4">
@@ -419,5 +419,44 @@
 	</div>
 </div>
 <script src="js/script.js"></script>
+
+<script src="plugins/validator/validator.js"></script>
+
+<script>
+	const forms = document.querySelectorAll("form");
+	let validators = {};
+
+	forms.forEach((form, i) => {
+		const valid = new Validator ({	
+			selector: "#form"+ (i + 1),
+			pattern: {
+				text: /^[а-яА-ЯёЁ\s]+$/
+			},
+			method: {
+			},
+			XMLRequest: true
+		});
+		valid.method[`form${i + 1}-phone`] = [
+			["noEmpty"],
+			["pattern", "phone"]
+		];
+		valid.method[`form${i + 1}-email`] = [
+			["noEmpty"],
+			["pattern", "email"]
+		];
+		valid.method[`form${i + 1}-name`] = [
+			["noEmpty"],
+			["pattern", "text"]
+		];
+		valid.method[`form${i + 1}-message`] = [
+			["noEmpty"],
+			["pattern", "text"]
+		]
+		valid.init();
+		validators[`form${i + 1}`] = valid;
+	});
+
+</script>
+
 </body>
 </html>

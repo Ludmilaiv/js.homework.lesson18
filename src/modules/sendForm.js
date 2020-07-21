@@ -162,6 +162,7 @@ const sendForm = () => {
   const successMessage = "Спасибо! Мы скоро с вами свяжемся";
 
   const statusMessage = document.createElement("div");
+  statusMessage.classList.add("message");
   statusMessage.style.cssText = "font-size: 2rem; color: #fff";
 
   forms.forEach((form) => {
@@ -175,6 +176,14 @@ const sendForm = () => {
         formData.forEach((val, key) => {
           body[key] = val;
         });
+        const clearForm = () => {
+          form.reset();
+          const elements = form.querySelectorAll("input");
+          elements.forEach(elem => {
+            elem.classList.remove("success");
+          })
+          setTimeout(() => {statusMessage.remove()}, 5000);
+        } 
         postData(body)
           .then(
             (response) => {
@@ -182,11 +191,12 @@ const sendForm = () => {
                 throw new Error("status network not 200");
               }
               statusMessage.textContent = successMessage;
-              form.reset();
+              clearForm();
             })
           .catch(error => {
             statusMessage.textContent = errorMesage;
             console.log(error);
+            clearForm();
           } 
         );
       }

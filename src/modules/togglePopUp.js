@@ -35,12 +35,29 @@ const togglePopUp = () => {
         requestAnimationFrame(animateHide);
       } else {
         popup.style.display = "none";
+        clearPopupForm(popup);
       }
     } else {
       popup.style.display = "none";
+      clearPopupForm(popup);
     }
-    
   }
+
+  const clearPopupForm = (pop) => {
+    const form = pop.querySelector("form");
+    const validatorErrors = pop.querySelectorAll(".validator-error");
+    const statusMessage = pop.querySelector(".message");
+    const elements = form.querySelectorAll("input");
+    form.reset();
+    elements.forEach(elem => {
+      elem.classList.remove("success");
+      elem.classList.remove("error");
+    });
+    if (statusMessage) {
+      statusMessage.remove();
+    };
+    validatorErrors.forEach(elem => elem.remove());
+  } 
 
   popupBtn.forEach((elem) => {
     elem.addEventListener("click", () => {

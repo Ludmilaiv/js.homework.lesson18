@@ -6,25 +6,6 @@ const calc = (price = 100) => {
   const calcCount = document.querySelector(".calc-count");
   const totalValue = document.getElementById("total");
 
-  const animTotal = (val) => {
-    let showTotal = +totalValue.textContent;
-    if (showTotal == 0) {
-      totalValue.textContent = val;
-    } else if (showTotal < val) {
-      setTimeout(() => {
-        showTotal++;
-        totalValue.textContent = showTotal;
-        animTotal(val);
-      }, 1); 
-    } else if (showTotal > val) {
-      setTimeout(() => {
-        showTotal--;
-        totalValue.textContent = showTotal;
-        animTotal(val);
-      }, 1); 
-    } 
-  }
-
   const countSum = () => {
     let total = 0;
     let countValue = 1;
@@ -45,8 +26,7 @@ const calc = (price = 100) => {
     if (typeValue && sqareValue) {
        total = price * typeValue * sqareValue * countValue * dayValue;
      } 
-     animTotal(total);
-    //totalValue.textContent = total;
+    totalValue.textContent = total;
   };
 
   calcBlock.addEventListener("change",(event) => {

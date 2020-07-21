@@ -455,12 +455,12 @@ window.addEventListener("DOMContentLoaded", function() {
               () => {
                 statusMessage.textContent = successMessage;
                 form.reset();
-              },
-              error => {
-                statusMessage.style.background = errorMesage;
-                console.log(error);
-              } 
-            );
+              })
+            .catch(error => {
+              statusMessage.textContent = errorMesage;
+              console.log(error);
+            } 
+          );
         }
       });
     })

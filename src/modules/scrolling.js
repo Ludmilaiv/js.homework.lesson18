@@ -3,7 +3,14 @@ const scrolling = () => {
   const downBtn = document.querySelector("main>a[href=\"#service-block\"]");
 
   const smoothScroll = (section, speed) => {
-    if (document.documentElement.scrollTop < section.offsetTop) {
+    if (document.documentElement.scrollTop !== section.offsetTop) {
+      if (speed > Math.abs(section.offsetTop - document.documentElement.scrollTop)) {
+        speed = section.offsetTop - document.documentElement.scrollTop;
+      }
+      if (document.documentElement.scrollHeight - document.documentElement.scrollTop == 
+        document.documentElement.clientHeight) {
+          return;
+        }
       scrollBy(0,speed);
       requestAnimationFrame(() => smoothScroll(section, speed));
     }

@@ -5,17 +5,6 @@ const slider = () => {
   const slider = document.querySelector(".portfolio-content");
   const dot = [];
 
-  const addDots = () => {
-    for (let i = 0; i < slide.length; i++){
-      const d = document.createElement("li");
-      d.classList.add("dot");
-      dots.append(d);
-      dot.push(d);
-    }
-  };
-
-  addDots();
-
   let currentSlide = 0;
 
   const prevSlide = (elem, index, strClass) => {
@@ -25,6 +14,18 @@ const slider = () => {
   const nextSlide = (elem, index, strClass) => {
     elem[index].classList.add(strClass);
   }
+
+  const addDots = () => {
+    for (let i = 0; i < slide.length; i++){
+      const d = document.createElement("li");
+      d.classList.add("dot");
+      dots.append(d);
+      dot.push(d);
+    };
+    nextSlide(dot, currentSlide, "dot-active");
+  };
+
+  addDots();
 
   const autoPlaySlide = () => {
     prevSlide(slide, currentSlide, "portfolio-item-active");

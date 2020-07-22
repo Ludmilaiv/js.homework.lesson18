@@ -26,7 +26,7 @@ const calc = (price = 100) => {
     if (typeValue && sqareValue) {
        total = price * typeValue * sqareValue * countValue * dayValue;
      } 
-    totalValue.textContent = total;
+    totalValue.textContent = Math.round(total);
   };
 
   calcBlock.addEventListener("change",(event) => {
